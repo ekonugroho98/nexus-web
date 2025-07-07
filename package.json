@@ -1,0 +1,38 @@
+{
+  "name": "nexus-bot",
+  "version": "1.0.0",
+  "description": "Automated Nexus proof generation bot with multi-thread support",
+  "main": "nexus-bot.js",
+  "scripts": {
+    "start": "node nexus-bot.js",
+    "dev": "node nexus-bot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nexus",
+    "bot",
+    "proof",
+    "automation",
+    "multi-thread",
+    "crypto"
+  ],
+  "author": "Nexus Bot Developer",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "proxy-agent": "^6.3.0",
+    "readline": "^1.3.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/nexus-bot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/nexus-bot/issues"
+  },
+  "homepage": "https://github.com/yourusername/nexus-bot#readme"
+} 

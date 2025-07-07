@@ -51,6 +51,22 @@ cp env.example .env
 # Edit .env file dengan konfigurasi yang sesuai
 ```
 
+### Quick Start
+```bash
+# Clone dan install
+git clone <repository-url>
+cd nexus-bot
+npm install
+
+# Setup files
+cp env.example .env
+# Edit accounts.txt dengan credentials
+# Edit .env dengan konfigurasi
+
+# Run bot
+npm start
+```
+
 ## ⚙️ Configuration
 
 ### 1. Account Setup
@@ -90,6 +106,8 @@ NEXUS_API_URL=https://beta.orchestrator.nexus.xyz
 ### Basic Usage
 
 ```bash
+npm start
+# atau
 node nexus-bot.js
 ```
 

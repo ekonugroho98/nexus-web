@@ -71,9 +71,7 @@ function encodeNodeTelemetry(field, telemetry) {
     return [tag, ...encodeVarint(inner.length), ...inner];
 }
 // Fungsi untuk membuat binary payload submit proof sesuai protobuf
-function createSubmitPayload(taskId, proofHash, proofBytes, flopsPerSec, publicKey, signature) {
-    // Dummy nodeId (harusnya dari context/node info)
-    const nodeId = "12927942";
+function createSubmitPayload(taskId, proofHash, proofBytes, flopsPerSec, publicKey, signature, nodeId) {
     const nodeType = 0; // WEB_PROVER
     const nodeTelemetry = {
         flopsPerSec: Math.floor(flopsPerSec),
@@ -93,13 +91,13 @@ function createSubmitPayload(taskId, proofHash, proofBytes, flopsPerSec, publicK
     return new Uint8Array(bytes);
 }
 // Fungsi submit proof yang menggunakan endpoint asli
-async function submitProof(taskId, proofHash, proofBytes, flopsPerSec) {
+async function submitProof(taskId, proofHash, proofBytes, flopsPerSec, nodeId) {
     try {
         const { publicKey, secretKey } = getKeyPairFromSession();
         const message = encodeUtf8(`0 | ${taskId} | ${proofHash}`);
         const signature = signDetached(message, secretKey);
         // Create binary payload
-        const payload = createSubmitPayload(taskId, proofHash, proofBytes, flopsPerSec, publicKey, signature);
+        const payload = createSubmitPayload(taskId, proofHash, proofBytes, flopsPerSec, publicKey, signature, nodeId);
         // Submit to actual Nexus API
         const response = await fetch('https://beta.orchestrator.nexus.xyz/v3/tasks/submit', {
             method: 'POST',
@@ -426,7 +424,7 @@ async function runFullWorkflow(nodeId, publicKey) {
         console.log(`  - Cycles: ${proof.cycles}`);
         // Step 4: Submit proof
         console.log('\n[workflow]: Step 3 - Submitting proof...');
-        await submitProof(taskId, proof.hash, proof.bytes, 1000); // 1000 flops/sec
+        await submitProof(taskId, proof.hash, proof.bytes, 1000, nodeId); // 1000 flops/sec
         console.log('\n[workflow]: ✅ Full workflow completed successfully!');
     }
     catch (error) {
